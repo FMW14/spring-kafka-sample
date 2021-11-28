@@ -1,5 +1,6 @@
 package com.bjartscular.example.springkafkasample.services;
 
+import com.bjartscular.example.commondto.PersonPostRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +15,10 @@ public class KafkaProducer {
     private String producerTopic;
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, PersonPostRequestDto> kafkaTemplate;
 
-    public void sendMessage(String message) {
-        log.info(String.format("#### -> Producing message -> %s", message));
-        this.kafkaTemplate.send(producerTopic, message);
+    public void sendPerson(PersonPostRequestDto personPostRequestDto) {
+        log.info(String.format("#### -> Producing message -> %s", personPostRequestDto));
+        this.kafkaTemplate.send(producerTopic, personPostRequestDto);
     }
 }
