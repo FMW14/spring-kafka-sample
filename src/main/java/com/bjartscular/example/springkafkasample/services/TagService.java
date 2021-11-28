@@ -15,10 +15,10 @@ public class TagService {
     private TagRepository tagRepository;
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void incrementTagCounter(String tagName) {
+    public Tag incrementTagCounter(String tagName) {
         Tag tag = tagRepository.findByName(tagName).orElse(new Tag(tagName, 0));
-        log.info("Current counter value for tag {}: {}; new value = {}", tagName, tag.getCounter(), tag.getCounter() + 1);
+        log.info("Current counter value for tag \"{}\": {}; new value = {}", tagName, tag.getCounter(), tag.getCounter() + 1);
         tag.setCounter(tag.getCounter() + 1);
-        tagRepository.save(tag);
+        return tagRepository.save(tag);
     }
 }
